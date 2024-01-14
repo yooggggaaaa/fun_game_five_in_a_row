@@ -32,18 +32,22 @@ class Board:
     
     def set_color(self, r, c, color):
         # print(color)
-        
         self.board[r][c] = color
 
     # check if the player wins by placing the chess at location (r,c)
     def check_if_win(self, r, c):
+        if self.get_position_color(r,c) == " ":
+            return False
+
         if self._check_if_five_in_a_col(r,c) or self._check_if_five_in_a_row(r,c) or self._check_if_five_in_a_diagonal_to_the_right(r,c) or self._check_if_five_in_a_diagonal_to_the_left(r,c):
             return True
+
         return False
 
     def _check_if_five_in_a_row(self, r, c):
         # check if there are 5 chesses with same color
         # check how many chesses are to the right and left of current chess
+        
         count = 1
         right_c = c
         for i in range(1,5):
@@ -185,6 +189,9 @@ class Board:
                 if self.board[r][c] == " ":
                     return False
         return True
+
+    def get_position_color(self, r, c):
+        return self.board[r][c]
 
 class Player:
     def __init__(self, player_color):
